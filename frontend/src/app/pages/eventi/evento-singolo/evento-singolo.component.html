@@ -1,0 +1,120 @@
+<!-- Background -->
+<div class="background-container">
+  <img [src]="event?.immagine" alt="Background" class="background-image" />
+</div>
+
+<main class="main-evento">
+  <!-- Loading -->
+  <section *ngIf="loading" class="loading-section">
+    <p>Caricamento evento...</p>
+  </section>
+
+  <!-- Evento Caricato -->
+  <section *ngIf="!loading && event" class="evento-content">
+
+    <!-- Immagine Evento -->
+    <div class="evento-image-container">
+      <img [src]="event.immagine" [alt]="event.titolo" class="evento-image" />
+    </div>
+
+    <!-- Titolo -->
+    <h1 class="titolo_iscrizione">{{ event.titolo }}</h1>
+
+    <!-- Data Evento -->
+    <div class="event-date">
+      <i class="fa fa-calendar"></i>
+      <strong>{{ event.data | date:'dd MMM yyyy - HH:mm' }}</strong>
+    </div>
+
+    <!-- Descrizione -->
+    <div class="event-description">
+      <p style="white-space: pre-line;">{{ event.descrizione }}</p>
+    </div>
+
+    <!-- Messaggi di Successo -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      <i class="fa fa-check-circle"></i> {{ successMessage }}
+    </div>
+
+    <!-- Messaggi di Errore -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      <i class="fa fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+
+    <!-- ========== ISCRIZIONE RAPIDA (UTENTE LOGGATO) ========== -->
+    <div *ngIf="isLoggedIn && registrationAllowed && !isIscritto" class="iscrizione-rapida">
+      <div class="rapida-header">
+        <i class="fa fa-bolt"></i>
+        <p>Sei loggato! Iscriviti con un solo click</p>
+      </div>
+      <button (click)="iscrizioneRapida()" class="btn-rapida">
+        <i class="fa fa-check"></i> Iscriviti Subito
+      </button>
+    </div>
+
+    <div *ngIf="isLoggedIn && registrationAllowed && isIscritto" class="iscrizione-rapida">
+      <div class="rapida-header">
+        <i class="fa fa-bolt"></i>
+        <p>Sei già iscritto a questo evento!!! Ci vediamo in pista</p>
+      </div>
+    </div>
+
+    <!-- ========== FORM COMPLETO (UTENTE NON LOGGATO) ========== -->
+    <div *ngIf="!isLoggedIn && registrationAllowed" class="form-container">
+      <form class="form-evento" (ngSubmit)="register()">
+        <h3 class="form-title">Compila il form per iscriverti</h3>
+
+        <div class="form-group">
+          <label for="nome">Nome *</label>
+          <input
+            type="text"
+            id="nome"
+            [(ngModel)]="form.nome"
+            name="nome"
+            placeholder="Inserisci il tuo nome"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="cognome">Cognome *</label>
+          <input
+            type="text"
+            id="cognome"
+            [(ngModel)]="form.cognome"
+            name="cognome"
+            placeholder="Inserisci il tuo cognome"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Telefono *</label>
+          <input
+            type="tel"
+            id="telefono"
+            [(ngModel)]="form.telefono"
+            name="telefono"
+            placeholder="Es: 3331234567"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fa fa-paper-plane"></i> Registrati
+        </button>
+      </form>
+    </div>
+
+    <!-- ========== ISCRIZIONI CHIUSE ========== -->
+    <div *ngIf="!registrationAllowed && !successMessage" class="alert alert-warning">
+      <i class="fa fa-lock"></i> Le iscrizioni sono chiuse per questo evento
+    </div>
+
+  </section>
+
+  <!-- Errore Caricamento -->
+  <section *ngIf="!loading && !event" class="error-section">
+    <p>Evento non trovato</p>
+  </section>
+</main>

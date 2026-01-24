@@ -1,0 +1,46 @@
+<div class="admin-container">
+  <div class="content">
+    <h1 class="title">GESTIONE LISTE EVENTI</h1>
+    <p class="subtitle">Seleziona un evento per visualizzare i partecipanti</p>
+
+    <!-- Carosello Eventi -->
+    <div class="carousel-wrapper" *ngIf="listaEventi && listaEventi.length > 0">
+      <button class="carousel-btn prev" (click)="prevSlide()" *ngIf="listaEventi.length > itemsPerPage">‹</button>
+
+      <div class="carousel-container">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (currentIndex * slideWidth) + '%)'">
+          <div class="event-card" *ngFor="let evento of listaEventi">
+            <div class="event-image-wrapper">
+              <img [src]="evento.immagine || 'assets/images/default-event.jpg'"
+                   [alt]="evento.titolo"
+                   class="event-image">
+              <div class="event-overlay">
+                <h3>{{ evento.titolo }}</h3>
+              </div>
+            </div>
+            <div class="event-body">
+              <p class="event-date">📅 {{ evento.data | date:'dd/MM/yyyy HH:mm' }}</p>
+              <p class="event-location" *ngIf="evento.luogo">📍 {{ evento.luogo }}</p>
+            </div>
+            <div class="event-footer">
+              <a [routerLink]="['/admin/dettaglio-lista', evento.id]" class="btn-view">
+                Visualizza Lista
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-btn next" (click)="nextSlide()" *ngIf="listaEventi.length > itemsPerPage">›</button>
+    </div>
+
+    <div class="empty" *ngIf="!listaEventi || listaEventi.length === 0">
+      <p>Nessun evento disponibile</p>
+    </div>
+
+    <!-- Link indietro -->
+    <div class="actions">
+      <a routerLink="/admin-home" class="link">← Torna alla Dashboard</a>
+    </div>
+  </div>
+</div>

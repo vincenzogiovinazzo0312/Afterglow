@@ -1,0 +1,37 @@
+<main class="index-section">
+    <div class="background-container">
+        <img src="/foto_event.jpg" class="background-image" />
+    </div>
+    <section class="event-list-section">
+        <h2 class="text-event">EVENTI DISPONIBILI</h2>
+
+        <div class="event-container">
+            <div class="event-scroll">
+
+                <div class="event" *ngFor="let e of events">
+
+                    <h3>{{ e.titolo }}</h3>
+
+                    <p><strong>Data:</strong> {{ e.dataFormattata }}</p>
+
+                    <img
+                            [src]="e.immagine"
+                            class="event-image"
+                            alt="Locandina Evento"
+                    />
+
+                    <a
+                            class="button-iscrizione"
+                            [routerLink]="['/eventi', e.id]"
+                    >
+                        Dettagli e iscrizione
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-features></app-features>

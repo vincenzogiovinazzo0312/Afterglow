@@ -1,0 +1,96 @@
+<section class="crea-album-section">
+
+  <h1 class="text-title">Crea Nuovo Album</h1>
+
+  <div class="form-container">
+    <form (ngSubmit)="creaAlbum()" class="album-form">
+
+      <!-- Nome Album -->
+      <div class="form-group">
+        <label for="nome">Nome Album *</label>
+        <input
+          type="text"
+          id="nome"
+          [(ngModel)]="nome"
+          name="nome"
+          placeholder="Inserisci il nome dell'album"
+          required>
+      </div>
+
+      <!-- Descrizione -->
+      <div class="form-group">
+        <label for="descrizione">Descrizione</label>
+        <textarea
+          id="descrizione"
+          [(ngModel)]="descrizione"
+          name="descrizione"
+          rows="4"
+          placeholder="Descrivi il tuo album..."></textarea>
+      </div>
+
+      <!-- Foto Copertina -->
+      <div class="form-group">
+        <label>Foto Copertina</label>
+        <div class="upload-area">
+          <input
+            type="file"
+            id="copertina"
+            (change)="onCopertinaSelected($event)"
+            accept="image/*"
+            hidden>
+          <label for="copertina" class="upload-btn">
+            📷 Scegli Copertina
+          </label>
+
+          <div *ngIf="copertinaPreview" class="preview-copertina">
+            <img [src]="copertinaPreview" alt="Copertina">
+            <button type="button" class="remove-btn" (click)="rimuoviCopertina()">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto Album -->
+      <div class="form-group">
+        <label>Foto Album</label>
+        <div class="upload-area">
+          <input
+            type="file"
+            id="foto"
+            (change)="onFotoSelected($event)"
+            accept="image/*"
+            multiple
+            hidden>
+          <label for="foto" class="upload-btn">
+            🖼️ Aggiungi Foto ({{ fotoSelezionate.length }})
+          </label>
+        </div>
+
+        <!-- Preview Foto -->
+        <div class="foto-grid" *ngIf="previews.length > 0">
+          <div *ngFor="let preview of previews; let i = index" class="foto-preview">
+            <img [src]="preview" alt="Foto {{ i + 1 }}">
+            <button type="button" class="remove-btn-small" (click)="rimuoviFoto(i)">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="info-box" *ngIf="nome.trim()">
+        <p>📁 Cartella che verrà creata: <strong>album_[ID]</strong></p>
+        <p>📸 Foto da caricare: <strong>{{ fotoSelezionate.length }}</strong></p>
+      </div>
+
+      <!-- Pulsanti -->
+      <div class="button-group">
+        <button type="submit" class="btn-submit" [disabled]="loading || !nome.trim()">
+          <span *ngIf="!loading">✓ Crea Album</span>
+          <span *ngIf="loading">⏳ Caricamento...</span>
+        </button>
+        <button type="button" class="btn-cancel" (click)="annulla()" [disabled]="loading">
+          ✕ Annulla
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

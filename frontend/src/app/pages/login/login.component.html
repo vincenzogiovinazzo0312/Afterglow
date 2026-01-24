@@ -1,0 +1,21 @@
+<div class="login-container">
+  <form class="login-form" (ngSubmit)="login()">
+    <h2>Accedi</h2>
+    <input name="username" [(ngModel)]="credentials.username" placeholder="Username" required>
+    <input name="password" [(ngModel)]="credentials.password" placeholder="Password" required type="password">
+      <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+      </div>
+
+      <button (click)="login()" [disabled]="isLoading">
+          {{ isLoading ? 'Caricamento...' : 'Accedi' }}
+      </button>
+    <div class="login-links">
+      <a routerLink="/recupero">Password dimenticata?</a>
+        <br>
+      <span>Non hai un account?
+        <a routerLink="/registrazione">Registrati</a>
+      </span>
+    </div>
+  </form>
+</div>

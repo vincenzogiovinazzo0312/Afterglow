@@ -1,0 +1,25 @@
+<div class="login-container">
+  <form class="login-form" (ngSubmit)="recupero()">
+    <h2>Recupero Password</h2>
+
+    <input
+      name="username"
+      [(ngModel)]="credentials.username"
+      placeholder="Username"
+      [disabled]="isLoading">
+
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Invio in corso...' : 'Invia mail' }}
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <a routerLink="/login" class="back-link">Torna al login</a>
+  </form>
+</div>

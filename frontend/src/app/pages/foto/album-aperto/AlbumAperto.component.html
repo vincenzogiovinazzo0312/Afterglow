@@ -1,0 +1,177 @@
+<section>
+
+    <!-- Messaggio se non loggato -->
+    <div *ngIf="!isLoggedIn" style="text-align: center; padding: 10px; background: #fff3cd; color: #856404; border-radius: 8px; margin: 0 50px 20px;">
+        ⚠️ Per mettere like e commentare,
+        <a routerLink="/login" style="color: #f8c03e; font-weight: bold;">effettua il login</a>
+    </div>
+
+    <!-- Titolo e Descrizione -->
+    <h1 class="galleria_h1">{{ albumTitle }}</h1>
+    <p class="descrizione_galleria">{{ albumDescription }}</p>
+
+    <!-- Loading -->
+    <div *ngIf="loading" style="text-align: center; padding: 50px; color: #f8c03e;">
+        Caricamento foto...
+    </div>
+
+    <!-- Grid Foto -->
+    <div class="gallery" *ngIf="!loading && images.length > 0">
+        <img
+                *ngFor="let img of images; let i = index"
+                [src]="img.src"
+                [alt]="img.alt || 'Foto'"
+                class="gallery-item"
+                (click)="openLightbox(i)">
+    </div>
+
+    <!-- Nessuna Foto -->
+    <div *ngIf="!loading && images.length === 0" style="text-align: center; padding: 80px; color: #f8c03e; font-size: 20px;">
+        📸 Nessuna foto in questo album
+    </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" [class.active]="lightboxOpen" (click)="closeLightbox()">
+    <span class="close">✕</span>
+
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+
+        <!-- Immagine + Navigazione -->
+        <div class="lightbox-left">
+            <button id="prev" class="nav-btn" (click)="prevImage()"></button>
+
+            <img
+                    [src]="currentImage?.src"
+                    [alt]="currentImage?.alt || 'Foto'"
+                    class="lightbox-image">
+
+
+            <button id="next" class="nav-btn" (click)="nextImage()"></button>
+            <div class="lightbox-actions">
+                <button *ngIf="isLoggedIn" class="open-comments-btn" (click)="openMobileComments()">
+                    <span class="comment-icon">💬</span>
+                    <span class="comment-badge">
+                    {{ currentImage?.comments?.length || 0 }}
+                </span>
+                </button>
+                <button
+                        *ngIf="currentImage?.src"
+                        (click)="downloadImage()"
+                        class="download-btn action-bar">
+                    Scarica
+                </button>
+
+                <!-- Like Button (solo se loggato) -->
+                <button *ngIf="isLoggedIn" class="like-btn" [class.liked]="hasLiked()" (click)="toggleLike()">
+                <span class="like-icon">
+                    <span *ngIf="!hasLiked()">🤍</span>
+                    <span *ngIf="hasLiked()">❤️</span>
+                </span>
+                    <span class="like-badge">
+                    {{ currentImage?.likeCount || 0 }}
+                </span>
+                </button>
+
+
+            </div>
+        </div>
+
+        <!-- ACTION BAR UNICA: Scarica + Like + Commenti (SEMPRE VISIBILE) -->
+
+
+        <!-- Colonna destra: commenti o messaggio login -->
+        <div class="lightbox-right" *ngIf="isLoggedIn; else loginMsg">
+
+            <div class="comments-scroll-area">
+                <h3 class="comments-title">Commenti</h3>
+
+                <div class="comments-feed">
+                    <div *ngFor="let comment of currentImage?.comments" class="comment-item">
+                        <span class="comment-user">{{ comment.nomeUtente }}</span>
+                        <p class="comment-text">{{ comment.testo }}</p>
+                        <small class="comment-date">{{ comment.dataCommento | date:'short' }}</small>
+
+                        <button
+                                *ngIf="comment.username === loggedUsername"
+                                (click)="deleteComment(comment.idCommento)"
+                                class="delete-comment-btn">
+                            🗑 Elimina
+                        </button>
+
+                    </div>
+
+                    <p *ngIf="!currentImage?.comments || currentImage?.comments?.length === 0" style="color: #999; text-align: center; padding: 20px;">
+                        Nessun commento presente. Scrivi il primo!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Input Commento -->
+            <div class="comment-input-fixed">
+                <textarea
+                        [(ngModel)]="newComment"
+                        placeholder="Scrivi un commento..."
+                        rows="2"></textarea>
+                <button class="send-comment-btn" (click)="addComment()" [disabled]="!newComment.trim()">
+                    Invia
+                </button>
+            </div>
+        </div>
+
+        <!-- Messaggio login desktop -->
+        <ng-template #loginMsg>
+            <div class="lightbox-right login-message-box">
+                <div>
+                    <p>🔒 Effettua il login per vedere i commenti</p>
+                    <a routerLink="/login" class="login-btn-link">
+                        Vai al Login
+                    </a>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+
+<!-- Overlay Commenti MOBILE (solo se loggato) -->
+<div class="mobile-comments-overlay" *ngIf="mobileCommentsOpen && isLoggedIn" (click)="closeMobileComments()">
+    <div (click)="$event.stopPropagation()" style="display: flex; flex-direction: column; height: 100%;">
+
+        <div class="mobile-comments-header">
+            <span>Commenti</span>
+            <button class="close-mobile-comments" (click)="closeMobileComments()">✕</button>
+        </div>
+
+        <div class="mobile-comments-feed">
+            <div *ngFor="let comment of currentImage?.comments" class="comment-item">
+                <span class="comment-user">{{ comment.nomeUtente }}</span>
+                <p class="comment-text">{{ comment.testo }}</p>
+                <small class="comment-date">{{ comment.dataCommento | date:'short' }}</small>
+                <button
+                        *ngIf="comment.username === loggedUsername"
+                        (click)="deleteComment(comment.idCommento)"
+                        class="delete-comment-btn">
+                    Elimina
+                </button>
+            </div>
+
+            <p *ngIf="!currentImage?.comments || currentImage?.comments?.length === 0" style="color: #999; text-align: center; padding: 40px;">
+                Nessun commento presente. Scrivi il primo!
+            </p>
+        </div>
+
+        <div class="mobile-comment-input">
+            <textarea
+                    [(ngModel)]="newComment"
+                    placeholder="Scrivi un commento..."
+                    rows="2"></textarea>
+            <button class="send-comment-btn" (click)="addComment()" [disabled]="!newComment.trim()">
+                Invia
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<app-features></app-features>

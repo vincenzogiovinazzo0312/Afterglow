@@ -1,0 +1,115 @@
+<section class="albums-section">
+
+  <h1 class="text-title">I Nostri Album</h1>
+
+  <!-- Barra Ricerca e Azioni -->
+  <div class="toolbar">
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Cerca album per nome..."
+        (keyup.enter)="cerca()"
+        class="search-input">
+      <button class="btn-search" (click)="cerca()">🔍 Cerca</button>
+      <button class="btn-reset" (click)="resetRicerca()" *ngIf="searchTerm">✕ Reset</button>
+    </div>
+
+    <button class="btn-create" (click)="creaAlbum()">
+      ➕ Crea Nuovo Album
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Caricamento in corso...</p>
+  </div>
+
+  <!-- Contatore -->
+  <div class="counter" *ngIf="!loading">
+    <p>Totale: <strong>{{ albumsFiltrati.length }}</strong> album</p>
+  </div>
+
+  <!-- Grid Albums -->
+  <div class="albums-grid" *ngIf="!loading && albumsPaginati.length > 0">
+    <div class="album-card" *ngFor="let album of albumsPaginati">
+
+      <!-- Copertina -->
+      <div class="album-cover" (click)="visualizzaAlbum(album.id!)">
+        <img
+          *ngIf="album.fotoCopertina"
+          [src]="album.fotoCopertina"
+          [alt]="album.nome"
+          class="cover-image">
+        <div *ngIf="!album.fotoCopertina" class="no-cover">
+          <span>📷</span>
+          <p>Nessuna copertina</p>
+        </div>
+
+        <!-- Badge numero foto -->
+        <div class="photo-badge">
+          📸 {{ album.numeroFoto || 0 }} foto
+        </div>
+      </div>
+
+      <!-- Info Album -->
+      <div class="album-info">
+        <h3 class="album-title" (click)="visualizzaAlbum(album.id!)">{{ album.nome }}</h3>
+        <p class="album-description" *ngIf="album.descrizione">{{ album.descrizione }}</p>
+        <p class="album-description no-description" *ngIf="!album.descrizione">Nessuna descrizione</p>
+      </div>
+
+      <!-- Pulsanti Azioni -->
+      <div class="album-actions">
+        <button class="btn-view" (click)="visualizzaAlbum(album.id!)">
+          👁️ Visualizza
+        </button>
+        <button class="btn-edit" (click)="modificaAlbum(album.id!)">
+          ✏️ Modifica
+        </button>
+        <button class="btn-delete" (click)="eliminaAlbum(album)">
+          🗑️ Elimina
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nessun Risultato -->
+  <div class="no-results" *ngIf="!loading && albumsPaginati.length === 0">
+    <div class="no-results-icon">📁</div>
+    <h2>Nessun album trovato</h2>
+    <p *ngIf="!searchTerm">Inizia creando il tuo primo album!</p>
+    <p *ngIf="searchTerm">Nessun album corrisponde alla ricerca "{{ searchTerm }}"</p>
+    <button class="btn-create-large" (click)="creaAlbum()">
+      ➕ Crea il Primo Album
+    </button>
+  </div>
+
+  <!-- Paginazione -->
+  <div class="pagination" *ngIf="!loading && totalPages > 1">
+    <button
+      class="page-btn"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1">
+      ‹ Precedente
+    </button>
+
+    <button
+      *ngFor="let page of getPagesArray()"
+      class="page-btn"
+      [class.active]="page === currentPage"
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+
+    <button
+      class="page-btn"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages">
+      Successivo ›
+    </button>
+  </div>
+
+</section>

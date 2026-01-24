@@ -1,0 +1,82 @@
+<!-- FORM CREA / MODIFICA EVENTO -->
+<section class="event-action-section">
+    <h2 class="section-title">
+        {{ eventoCorrente.id === 0 ? 'Aggiungi un Nuovo Evento' : '✏️ Modifica Evento' }}
+    </h2>
+
+    <input
+            type="text"
+            [(ngModel)]="eventoCorrente.titolo"
+            placeholder="Titolo Evento"
+            class="input-field">
+
+    <textarea
+            [(ngModel)]="eventoCorrente.descrizione"
+            placeholder="Descrizione"
+            class="input-field"
+            rows="4">
+  </textarea>
+
+    <input
+            type="datetime-local"
+            [(ngModel)]="eventoCorrente.data"
+            class="input-field">
+
+    <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            class="input-field">
+
+    <!-- Anteprima immagine scelta / URL esistente -->
+    <div *ngIf="eventoCorrente.immagine" class="image-preview">
+        <img [src]="eventoCorrente.immagine" alt="Anteprima evento">
+    </div>
+
+    <div class="button-group">
+        <button
+                (click)="salvaEvento()"
+                class="cta-btn save-btn"
+                [disabled]="uploading">
+            {{ uploading ? '⏳ Salvataggio...' : (eventoCorrente.id === 0 ? 'Crea Evento' : 'Aggiorna Evento') }}
+        </button>
+    </div>
+</section>
+
+<!-- LISTA EVENTI ESISTENTI -->
+<section class="event-list-section">
+    <h2 class="section-title">📅 Eventi Esistenti</h2>
+
+    <div class="event-container" *ngIf="listaEventi.length > 0; else noEvents">
+        <div *ngFor="let evento of listaEventi" class="event">
+            <!-- Immagine evento -->
+            <img
+                    *ngIf="evento.immagine"
+                    [src]="evento.immagine"
+                    alt="Immagine evento"
+                    class="event-image">
+
+            <h3>{{ evento.titolo }}</h3>
+
+            <p class="event-date">
+                {{ evento.data | date:'dd/MM/yyyy HH:mm' }}
+
+            <p class="event-description">
+                {{ evento.descrizione }}
+            </p>
+
+            <div class="event-actions">
+                <button (click)="preparaModifica(evento)" class="cta-btn edit-btn">
+                    ✏️ Modifica
+                </button>
+                <button (click)="eliminaEvento(evento.id)" class="cta-btn delete-btn">
+                    🗑️ Elimina
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noEvents>
+        <p class="no-events">Nessun evento trovato. Creane uno!</p>
+    </ng-template>
+</section>

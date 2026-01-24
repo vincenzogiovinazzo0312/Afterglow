@@ -1,0 +1,65 @@
+<main class="contact-section">
+  <h2 class="titolo_contattaci">Contattaci</h2>
+
+  <form class="contact-form" (ngSubmit)="onSubmit($event)" id="contact-form">
+
+    <select name="motivazione" required>
+      <option value="null">Motivazione contatto</option>
+      <option value="Prenotazione">Prenota il tuo evento</option>
+      <option value="Problema">Segnalazione di un problema</option>
+      <option value="Altro">Altro...</option>
+    </select>
+
+    <input type="text" placeholder="Nome" name="name" required>
+    <input type="email" placeholder="Email" name="email" required>
+
+    <textarea name="message" placeholder="Descrizione evento o segnalazione" required></textarea>
+
+    <button type="submit">Invia messaggio</button>
+  </form>
+
+  <h1 class="dove_trovarci">Dove siamo</h1>
+
+  <div class="map-container">
+    <iframe
+      class="mappa"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3085.1182991931805!2d16.239080676458595!3d39.3535575716304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133f998feeafa3bd%3A0xa9e0c95a5560d80e!2sKarma%20%7C%20Music%20-%20Life%20-%20Apartment!5e0!3m2!1sit!2sit!4v1734374060006!5m2!1sit!2sit"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
+</main>
+
+<app-features></app-features>
+
+<!-- CHATBOT BUTTON -->
+<button class="chatbot-button" (click)="toggleChat()">
+  <i class="fas fa-comments"></i>
+</button>
+
+<!-- CHATBOT WINDOW -->
+<div class="chatbot-container" [class.open]="chatOpen">
+  <div class="chatbot-header">
+    <span>Assistenza AfterGlow</span>
+    <button class="close-btn" (click)="toggleChat()">&times;</button>
+  </div>
+
+  <div class="chatbot-messages" #chatbox>
+    <div *ngFor="let msg of messages"
+         [class.user]="msg.sender === 'user'"
+         [class.bot]="msg.sender === 'bot'">
+      {{ msg.text }}
+    </div>
+  </div>
+
+  <div class="chatbot-input">
+    <input
+      [(ngModel)]="userMessage"
+      placeholder="Scrivi un messaggio..."
+      (keyup.enter)="sendMessage()"
+    >
+    <button (click)="sendMessage()">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,345 @@
+.crea-album-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px 80px 20px;
+  overflow: hidden;
+  color: white;
+}
+
+/* Sfondo */
+.background-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Titolo */
+.text-title {
+  font-size: 45px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #ffd85a, #f8c03e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(255, 200, 80, 0.3);
+  text-align: center;
+}
+
+/* Container Form */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(248, 192, 62, 0.3);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Form */
+.album-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffd85a;
+  letter-spacing: 0.5px;
+}
+
+/* Input Text */
+input[type="text"],
+textarea {
+  padding: 15px;
+  background: rgba(34, 34, 34, 0.9);
+  border: 2px solid #f8c03e;
+  border-radius: 10px;
+  color: #ffd85a;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ffd85a;
+  box-shadow: 0 0 15px rgba(255, 216, 90, 0.3);
+  background: rgba(34, 34, 34, 1);
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: rgba(255, 216, 90, 0.5);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Upload Area */
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.upload-btn {
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #f8c03e, #ffd85a);
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(248, 192, 62, 0.3);
+  display: inline-block;
+}
+
+.upload-btn:hover {
+  background: linear-gradient(45deg, #ffd85a, #f8c03e);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(248, 192, 62, 0.5);
+}
+
+/* Preview Copertina */
+.preview-copertina {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid #f8c03e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin-top: 10px;
+}
+
+.preview-copertina img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 87, 51, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background: #ff5733;
+  transform: scale(1.1);
+}
+
+/* Grid Foto */
+.foto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.foto-preview {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #f8c03e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.foto-preview:hover {
+  transform: scale(1.05);
+}
+
+.foto-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-btn-small {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 87, 51, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.remove-btn-small:hover {
+  background: #ff5733;
+  transform: scale(1.1);
+}
+
+/* Info Box */
+.info-box {
+  background: rgba(76, 175, 80, 0.2);
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.info-box p {
+  margin: 5px 0;
+  color: #a5d6a7;
+  font-size: 14px;
+}
+
+.info-box strong {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Pulsanti */
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.btn-submit,
+.btn-cancel {
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.btn-submit {
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: linear-gradient(45deg, #66bb6a, #4caf50);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #ffd85a;
+  border: 2px solid #ffd85a;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: rgba(255, 216, 90, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .text-title {
+    font-size: 32px;
+  }
+
+  .form-container {
+    padding: 25px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+  }
+
+  .foto-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .preview-copertina {
+    max-width: 100%;
+  }
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,142 @@
+<div class="profilo-container">
+  <h1>Il Mio Profilo</h1>
+
+  <!-- Messaggi di successo/errore -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- ========== SEZIONE DATI PERSONALI ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Dati Personali</h2>
+      <button *ngIf="!isEditingDati" (click)="toggleEditDati()" class="btn-edit">
+        Modifica
+      </button>
+    </div>
+
+    <div class="card-body">
+      <!-- Modalità visualizzazione -->
+      <div *ngIf="!isEditingDati">
+        <div class="info-row">
+          <span class="label">Username:</span>
+          <span class="value">{{ utente.username }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Nome:</span>
+          <span class="value">{{ utente.nome }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Cognome:</span>
+          <span class="value">{{ utente.cognome }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Email:</span>
+          <span class="value">{{ utente.email }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Telefono:</span>
+          <span class="value">{{ utente.telefono || 'Non specificato' }}</span>
+        </div>
+      </div>
+
+      <!-- Modalità modifica -->
+      <form *ngIf="isEditingDati" (ngSubmit)="salvaDati()">
+        <div class="form-group">
+          <label>Username (non modificabile)</label>
+          <input type="text" [value]="utente.username" disabled>
+        </div>
+
+        <div class="form-group">
+          <label>Nome *</label>
+          <input type="text" [(ngModel)]="datiForm.nome" name="nome" required>
+        </div>
+
+        <div class="form-group">
+          <label>Cognome *</label>
+          <input type="text" [(ngModel)]="datiForm.cognome" name="cognome" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" [(ngModel)]="datiForm.email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Telefono</label>
+          <input type="tel" [(ngModel)]="datiForm.telefono" name="telefono">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save" [disabled]="isLoading">
+            {{ isLoading ? 'Salvataggio...' : 'Salva' }}
+          </button>
+          <button type="button" (click)="annullaModifiche()" class="btn-cancel" [disabled]="isLoading">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== SEZIONE CAMBIO PASSWORD ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Sicurezza</h2>
+      <button *ngIf="!isEditingPassword" (click)="toggleEditPassword()" class="btn-edit">
+        Cambia Password
+      </button>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="!isEditingPassword">
+        <p>Clicca su "Cambia Password" per modificare la tua password.</p>
+      </div>
+
+      <form *ngIf="isEditingPassword" (ngSubmit)="cambiaPassword()">
+        <div class="form-group">
+          <label>Vecchia Password *</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.vecchiaPassword"
+            name="vecchiaPassword"
+            required
+            autocomplete="current-password">
+        </div>
+
+        <div class="form-group">
+          <label>Nuova Password * (minimo 8 caratteri)</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.nuovaPassword"
+            name="nuovaPassword"
+            required
+            minlength="8"
+            autocomplete="new-password">
+        </div>
+
+        <div class="form-group">
+          <label>Conferma Nuova Password *</label>
+          <input
+            type="password"
+            [(ngModel)]="passwordForm.confermaNuovaPassword"
+            name="confermaNuovaPassword"
+            required
+            autocomplete="new-password">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save" [disabled]="isLoading">
+            {{ isLoading ? 'Salvataggio...' : 'Cambia Password' }}
+          </button>
+          <button type="button" (click)="annullaModifiche()" class="btn-cancel" [disabled]="isLoading">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

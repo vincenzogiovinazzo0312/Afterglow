@@ -1,0 +1,49 @@
+<div class="admin-container">
+  <div class="content">
+    <h1 class="title">LISTA PARTECIPANTI</h1>
+    <p class="event-name">{{ nomeEvento }}</p>
+
+    <!-- Ricerca -->
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchNome" placeholder="Nome">
+      <input type="text" [(ngModel)]="searchCognome" placeholder="Cognome">
+      <button class="btn-primary" (click)="cerca()">Cerca</button>
+      <button class="btn-secondary" (click)="reset()">Reset</button>
+    </div>
+
+    <!-- Tabella -->
+    <div class="table-box" *ngIf="listaVisualizzata.length > 0">
+      <table>
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Telefono</th>
+          <th>Stato</th>
+          <th>Azione</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let p of listaVisualizzata">
+          <td>{{ p.nome }}</td>
+          <td>{{ p.cognome }}</td>
+          <td>{{ p.telefono }}</td>
+          <td>
+              <span class="badge" [class.ok]="p.entrato">
+                {{ p.entrato ? '✓ Entrato' : 'In attesa' }}
+              </span>
+          </td>
+          <td>
+            <button class="btn-small" [class.ok]="p.entrato" (click)="toggleEntrato(p)">
+              {{ p.entrato ? 'Annulla' : 'Segna' }}
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="empty" *ngIf="listaVisualizzata.length === 0">Nessun partecipante</p>
+
+  </div>
+</div>

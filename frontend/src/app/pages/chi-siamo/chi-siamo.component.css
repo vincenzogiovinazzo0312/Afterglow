@@ -1,0 +1,150 @@
+/* WRAPPER GENERALE */
+.chi-wrapper {
+  position: relative;
+  padding: 40px 20px 40px;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* SFONDO IMMAGINE */
+.chi-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(75%);
+}
+
+/* OVERLAY SCURO */
+.chi-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+/* CONTENUTO */
+.chi-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* TITOLO */
+.chi-title {
+  font-size: 58px;
+  font-weight: 800;
+  color: #ffd86d;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+
+
+  text-shadow: 0 0 10px rgba(255, 216, 109, 0.45),
+  0 0 25px rgba(255, 216, 109, 0.25);
+}
+
+
+.chi-divider {
+  width: 85px;
+  height: 4px;
+  background: #ff7a29;
+  margin: 0 auto 40px;
+  border-radius: 4px;
+
+
+  animation: fadeSlide 0.8s ease-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TESTO */
+.chi-content p {
+  font-size: 20px;
+  line-height: 1.9;
+  max-width: 850px;
+  margin: 0 auto 25px;
+  color: #f1f1f1;
+}
+
+/* TESTO EVIDENZIATO */
+.highlight {
+  color: #ff7a29;
+  font-weight: 700;
+}
+
+
+@media (max-width: 992px) {
+  .chi-title {
+    font-size: 44px;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chi-title {
+    font-size: 36px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chi-title {
+    font-size: 28px;
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 400px) {
+  .chi-title {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+  }
+}
+
+
+
+@media (max-width: 992px) {
+  .chi-content p {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .chi-content p {
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .chi-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 400px) {
+  .chi-content p {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 98%;
+  }
+}

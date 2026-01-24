@@ -1,0 +1,275 @@
+/*  CONTAINER PRINCIPALE  */
+.main-evento {
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: white;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) brightness(0.4);
+}
+
+/* LOADING  */
+.loading-section,
+.error-section {
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* EVENTO CONTENT  */
+.evento-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.evento-image-container {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.evento-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.titolo_iscrizione {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  background: linear-gradient(90deg, #f8c03e, #ff5733);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.event-date {
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 15px 0;
+  color: #f8c03e;
+}
+
+.event-date i {
+  margin-right: 10px;
+}
+
+.event-description {
+  margin: 30px 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e5e5e5;
+  text-align: justify;
+}
+
+/*  ALERTS  */
+.alert {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert i {
+  font-size: 1.3rem;
+}
+
+.alert-success {
+  background: rgba(74, 222, 128, 0.15);
+  border: 2px solid #4ade80;
+  color: #4ade80;
+}
+
+.alert-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid #ef4444;
+  color: #ef4444;
+}
+
+.alert-warning {
+  background: rgba(251, 191, 36, 0.15);
+  border: 2px solid #fbbf24;
+  color: #fbbf24;
+  text-align: center;
+  justify-content: center;
+}
+
+/*  ISCRIZIONE RAPIDA  */
+.iscrizione-rapida {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(34, 197, 94, 0.1));
+  border: 2px solid #4ade80;
+  border-radius: 15px;
+}
+
+.rapida-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.rapida-header i {
+  font-size: 2rem;
+  color: #fbbf24;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.rapida-header p {
+  font-size: 1.3rem;
+  color: white;
+  margin: 0;
+}
+
+.btn-rapida {
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 15px 50px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-rapida:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(74, 222, 128, 0.6);
+}
+
+.btn-rapida:active {
+  transform: translateY(0);
+}
+
+/*  FORM COMPLETO */
+.form-container {
+  margin: 40px 0;
+}
+
+.form-evento {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(248, 192, 62, 0.3);
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  color: #f8c03e;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #e5e5e5;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #f8c03e;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(90deg, #f8c03e, #ff5733);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(248, 192, 62, 0.5);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/*  RESPONSIVE  */
+@media (max-width: 768px) {
+  .titolo_iscrizione {
+    font-size: 2rem;
+  }
+
+  .evento-content {
+    padding: 20px;
+  }
+
+  .btn-rapida,
+  .btn-submit {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+  }
+}

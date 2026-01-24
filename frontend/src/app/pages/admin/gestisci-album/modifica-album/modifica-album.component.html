@@ -1,0 +1,132 @@
+<section class="modifica-album-section">
+  <h1 class="text-title">Modifica Album</h1>
+
+  <!-- Loading -->
+  <div *ngIf="loading && !nome" class="loading">
+    <div class="spinner"></div>
+    <p>Caricamento album...</p>
+  </div>
+
+  <div class="form-container" *ngIf="!loading || nome">
+    <form (ngSubmit)="aggiornaAlbum()" class="album-form">
+
+      <!-- Nome Album -->
+      <div class="form-group">
+        <label for="nome">Nome Album *</label>
+        <input
+          type="text"
+          id="nome"
+          [(ngModel)]="nome"
+          name="nome"
+          placeholder="Inserisci il nome dell'album"
+          required>
+      </div>
+
+      <!-- Descrizione -->
+      <div class="form-group">
+        <label for="descrizione">Descrizione</label>
+        <textarea
+          id="descrizione"
+          [(ngModel)]="descrizione"
+          name="descrizione"
+          rows="4"
+          placeholder="Descrivi il tuo album..."></textarea>
+      </div>
+
+      <!-- Foto Copertina -->
+      <div class="form-group">
+        <label>Foto Copertina</label>
+        <div class="upload-area">
+          <input
+            type="file"
+            id="copertina"
+            (change)="onNuovaCopertinaSelected($event)"
+            accept="image/*"
+            hidden>
+          <label for="copertina" class="upload-btn">
+            📷 Cambia Copertina
+          </label>
+
+          <div *ngIf="copertinaPreview" class="preview-copertina">
+            <img [src]="copertinaPreview" alt="Copertina">
+            <div class="preview-label" *ngIf="nuovaCopertina">Nuova</div>
+            <button type="button" class="remove-btn" (click)="rimuoviNuovaCopertina()" *ngIf="nuovaCopertina">✕</button>
+          </div>
+
+          <div *ngIf="!copertinaPreview" class="no-preview">
+            <span>📷</span>
+            <p>Nessuna copertina</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto Esistenti -->
+      <div class="form-group" *ngIf="fotoEsistenti.length > 0">
+        <label>Foto Esistenti ({{ fotoEsistenti.length }})</label>
+        <div class="foto-grid">
+          <div *ngFor="let foto of fotoEsistenti" class="foto-preview">
+            <img [src]="foto.percorso" [alt]="'Foto ' + foto.idFoto">
+            <button type="button" class="remove-btn-small" (click)="eliminaFotoEsistente(foto)">🗑️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Foto -->
+      <div *ngIf="loadingFoto" class="loading-small">
+        <div class="spinner-small"></div>
+        <p>Caricamento foto...</p>
+      </div>
+
+      <!-- Nessuna Foto -->
+      <div class="no-foto" *ngIf="!loadingFoto && fotoEsistenti.length === 0">
+        <p>📸 Nessuna foto presente in questo album</p>
+      </div>
+
+      <!-- Nuove Foto da Aggiungere -->
+      <div class="form-group">
+        <label>Aggiungi Nuove Foto</label>
+        <div class="upload-area">
+          <input
+            type="file"
+            id="foto"
+            (change)="onNuoveFotoSelected($event)"
+            accept="image/*"
+            multiple
+            hidden>
+          <label for="foto" class="upload-btn">
+            🖼️ Seleziona Foto ({{ nuoveFoto.length }})
+          </label>
+        </div>
+
+        <!-- Preview Nuove Foto -->
+        <div class="foto-grid" *ngIf="nuoveFotoPreview.length > 0">
+          <div *ngFor="let preview of nuoveFotoPreview; let i = index" class="foto-preview">
+            <img [src]="preview" alt="Nuova foto {{ i + 1 }}">
+            <div class="preview-label">Nuova</div>
+            <button type="button" class="remove-btn-small" (click)="rimuoviNuovaFoto(i)">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="info-box">
+        <p>📁 Cartella: <strong>album_{{ albumId }}</strong></p>
+        <p>📸 Foto attuali: <strong>{{ fotoEsistenti.length }}</strong></p>
+        <p>➕ Nuove foto da aggiungere: <strong>{{ nuoveFoto.length }}</strong></p>
+        <p>📊 Totale dopo modifica: <strong>{{ fotoEsistenti.length + nuoveFoto.length }}</strong></p>
+      </div>
+
+      <!-- Pulsanti -->
+      <div class="button-group">
+        <button type="submit" class="btn-submit" [disabled]="loading || !nome.trim()">
+          <span *ngIf="!loading">💾 Salva Modifiche</span>
+          <span *ngIf="loading">⏳ Salvataggio...</span>
+        </button>
+        <button type="button" class="btn-cancel" (click)="annulla()" [disabled]="loading">
+          ✕ Annulla
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

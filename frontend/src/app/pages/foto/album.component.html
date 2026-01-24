@@ -1,0 +1,29 @@
+<section class="album-section">
+    <h1 class="album-title">I Nostri Album</h1>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="no-albums">
+        Caricamento albums...
+    </div>
+
+    <!-- Grid Album -->
+    <div class="album-container" *ngIf="!loading && albums.length > 0">
+        <div class="album" *ngFor="let album of albums">
+            <a [routerLink]="['/foto', album.id]">
+                <img [src]="album.fotoCopertina || '/event1.jpg'" [alt]="album.nome">
+            </a>
+            <h2>{{ album.nome }}</h2>
+            <p>{{ album.descrizione || 'Clicca per vedere le foto' }}</p>
+            <a [routerLink]="['/foto', album.id]">Vai all'Album</a>
+        </div>
+    </div>
+
+    <!-- Nessun Album -->
+    <div *ngIf="!loading && albums.length === 0" class="no-albums">
+        Nessun album disponibile.<br>
+        Torna presto per vedere le nostre foto!
+    </div>
+</section>
+
+<app-features></app-features>
+

@@ -1,0 +1,111 @@
+.album-section {
+  padding: 50px;
+  background: #000;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.album-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffd85a, #f8c03e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 30px;
+  text-shadow: 0 0 5px rgba(255, 216, 90, 0.5);
+}
+
+.no-albums {
+  font-size: 1.6rem;
+  margin-top: 40px;
+  color: #f8c03e;
+  text-shadow: 0 0 10px rgba(255, 216, 90, 0.5);
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.album-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto 40px;
+}
+
+/* CARD */
+.album {
+  background: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding-bottom: 15px;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
+.album:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+.album img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 3px solid #f8c03e;
+  transition: transform 0.3s ease;
+}
+
+
+.album h2 {
+  font-size: 1.5rem;
+  color: #f8c03e;
+  margin: 15px 0 10px;
+}
+
+.album p {
+  font-size: 1rem;
+  color: #ccc;
+  margin: 0 15px 20px;
+}
+
+.album a {
+  width: 100%;
+  color: #111;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.album a:hover {
+  transform: translateY(-3px);
+}
+
+
+@media (max-width: 768px) {
+  .album-section {
+    padding: 30px 15px;
+  }
+
+  .album-title {
+    font-size: 2.2rem;
+  }
+
+  .album img {
+    height: 180px;
+  }
+}

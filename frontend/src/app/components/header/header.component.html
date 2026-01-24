@@ -1,0 +1,63 @@
+<header class="header">
+  <div class="logo">
+    <img alt="Afterglow Logo" src="logo.png">
+  </div>
+
+  <nav class="nav">
+    <!-- Pulsante per aprire il menu (mostrato solo su mobile dal CSS) -->
+    <button class="hamburger-menu" aria-label="Toggle navigation" (click)="toggleFullscreenMenu()">
+      ☰
+    </button>
+
+    <!-- Menu a schermo intero. La classe 'active' è gestita da isMenuOpen -->
+    <div class="fullscreen-menu" [ngClass]="{'active': isMenuOpen}">
+      <button class="close-menu" aria-label="Close navigation" (click)="closeMenu()">&times;</button>
+
+      <ul>
+
+        <!-- ========== MENU PER NON LOGGATI ========== -->
+        <ng-container *ngIf="!authService.isLoggedIn()">
+          <li><a routerLink="/login" (click)="closeMenu()">Accedi</a></li>
+          <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+          <li><a routerLink="/chi-siamo" (click)="closeMenu()">Chi siamo</a></li>
+          <li><a routerLink="/eventi" (click)="closeMenu()">Eventi</a></li>
+          <li><a routerLink="/foto" (click)="closeMenu()">Foto</a></li>
+          <li><a routerLink="/contatti" (click)="closeMenu()">Contatti</a></li>
+        </ng-container>
+
+        <!-- ========== MENU PER USER LOGGATO ========== -->
+        <ng-container *ngIf="authService.isLoggedIn() && authService.isUser()">
+          <li><a routerLink="/profilo" (click)="closeMenu()">Profilo</a></li>
+          <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+          <!-- <li><a routerLink="/chi-siamo" (click)="closeMenu()">Chi siamo</a></li>      tolto perchè di troppo, se serve decommentare-->
+          <li><a routerLink="/eventi" (click)="closeMenu()">Eventi</a></li>
+          <li><a routerLink="/foto" (click)="closeMenu()">Foto</a></li>
+          <!-- <li><a routerLink="/contatti" (click)="closeMenu()">Contatti</a></li>            tolto perchè di troppo, se serve decommentare-->
+          <li><a (click)="logout()" style="cursor: pointer;">Logout</a></li>
+        </ng-container>
+
+        <!-- ========== MENU PER ADMIN (SOLO SEZIONI GESTIONE) ========== -->
+        <ng-container *ngIf="authService.isAdmin()">
+          <li><a routerLink="/profilo" (click)="closeMenu()">Profilo</a></li>
+          <li><a routerLink="/admin/gestisci-lista" (click)="closeMenu()">Liste</a></li>
+          <li><a routerLink="/admin/gestisci-eventi" (click)="closeMenu()">Eventi</a></li>
+          <li><a routerLink="/admin/gestisci-utenti" (click)="closeMenu()">Utenti</a></li>
+          <li><a routerLink="admin/lista-album" (click)="closeMenu()">Foto</a></li>
+          <li><a (click)="logout()" style="cursor: pointer;">Logout</a></li>
+        </ng-container>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="social-icons">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <a href="https://www.facebook.com/profile.php?id=61566984957886&locale=it_IT" target="_blank" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/karma.rende" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+</header>
+
