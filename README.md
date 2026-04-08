@@ -1,16 +1,5 @@
 Afterglow è una piattaforma web completa progettata per modernizzare l'esperienza delle discoteche e dei club. Il sistema offre una soluzione end-to-end: dalla promozione degli eventi tramite gallerie fotografiche e chatbot basati su AI, alla gestione amministrativa delle liste d'ingresso e degli utenti.
 
-📑 Indice
-Caratteristiche Principali
-
-Stack Tecnologico
-
-Architettura del Progetto
-
-Configurazione e Installazione
-
-Contatti
-
 🚀 Caratteristiche Principali
 Esperienza Utente (Frontend)
 Dashboard Eventi: Visualizzazione dinamica degli eventi in programma con dettagli su data, ora e tipologia.
